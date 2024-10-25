@@ -17,17 +17,19 @@
 }
 
 .reveal-container {
-  width: 400px;
+  width: 100%;
 }
 
 .image-reveal {
   position: relative;
-  width: 1400px;
-  height: 700px;
+  width: 73vw; /* Относительно viewport width */
+  height: 20.5vw; /* Сохраняем пропорцию 2:1 */
   overflow: hidden;
 }
 
 img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -42,6 +44,25 @@ img {
   }
   100% {
     clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Для очень больших экранов */
+@media (min-width: 2560px) {
+  .image-reveal {
+    width: 70vw;
+    height: 20vw;
+  }
+}
+
+/* Для маленьких экранов */
+@media (max-width: 768px) {
+  .image-reveal {
+    width: 75vw;
+    height: 20vw;
+  }
+  .animations-container {
+    gap: 1rem;
   }
 }
 </style>

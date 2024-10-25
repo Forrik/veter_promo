@@ -1,15 +1,13 @@
 <template>
   <div class="background" :class="{ 'show-background': showBackground }">
     <div class="background-image" :style="backgroundStyle" @transitionend="onTransitionEnd"></div>
-
     <div class="waves-container" :class="{ 'move-up': showTitle }">
       <Wave class="wave wave-left" />
       <Wave class="wave wave-right" />
     </div>
-
     <div class="svg-container" :class="{ 'show-svg': showContent, 'move-up': showTitle }">
       <svg
-        class="first-svg"
+        class="logo-svg"
         xmlns="http://www.w3.org/2000/svg"
         width="302"
         height="302"
@@ -26,7 +24,7 @@
         />
       </svg>
       <svg
-        class="second-svg"
+        class="title-svg"
         xmlns="http://www.w3.org/2000/svg"
         width="598"
         height="140"
@@ -182,7 +180,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .background {
   position: relative;
   width: 100%;
@@ -191,78 +189,7 @@ export default {
   background-color: #9fb4d2;
 }
 
-.background-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  will-change: transform;
-}
-
-.show-background .background-image {
-  opacity: 1;
-}
-
-@keyframes slowZoom {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.125);
-  }
-  100% {
-    transform: scale(1.25);
-  }
-}
-
-.svg-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 10;
-}
-
-.svg-container.show-svg {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.svg-container.move-up {
-  transform: translateY(-20vh) scale(0.8);
-}
-
-.content-container {
-  position: absolute;
-  bottom: -100%;
-  opacity: 0;
-  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-  text-align: center;
-  z-index: 10;
-}
-
-.content-container__info-paragraph {
-  color: white;
-  margin-top: 2rem;
-}
-
-.content-container.show-content {
-  bottom: 20%;
-  opacity: 1;
-}
-
-.content-container.show-content {
-  opacity: 1;
-  bottom: 10%;
-}
-
+/* Waves styles */
 .waves-container {
   position: absolute;
   width: 100%;
@@ -279,178 +206,108 @@ export default {
 
 .wave {
   position: absolute;
-  top: 12-%;
+  top: 12%;
+  width: 28vw;
+  transform-origin: center;
+  transform: translateY(-15%);
   transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .wave-left {
-  left: -27%;
-  transform-origin: center;
+  left: -27vw;
   transform: translateY(-15%) rotate(5deg);
-  width: 15%;
 }
 
 .wave-right {
-  right: -27%;
-  transform-origin: center;
+  right: -27vw;
   transform: translateY(-15%) rotate(-5deg) scaleX(-1);
-  width: 15%;
 }
 
-/* Большие экраны */
-@media (min-width: 1921px) and (min-height: 1081px) {
-  .wave-left,
-  .wave-right {
-    display: none;
-  }
-  .content-container.show-content {
-    bottom: -20%;
-  }
-  .svg-container {
-    width: 150px;
-    height: 350px;
-  }
+/* Background image styles */
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  will-change: transform;
 }
 
-/* Комбинированные медиа-запросы для средних и маленьких экранов */
-@media (max-width: 1760px) and (max-height: 1760px) {
-  .wave-left {
-    left: -35%;
-    transform: translateY(-5%) rotate(3deg);
-  }
-  .wave-right {
-    right: -35%;
-    transform: translateY(-5%) rotate(-3deg) scaleX(-1);
-  }
-  .content-container.show-content {
-    bottom: 15%;
-  }
+.show-background .background-image {
+  opacity: 1;
 }
 
-@media (max-width: 1560px) and (max-height: 1370px) {
-  .wave-left {
-    left: -47%;
-    transform: translateY(-8%) rotate(3deg);
-  }
-  .wave-right {
-    right: -47%;
-    transform: translateY(-8%) rotate(-3deg) scaleX(-1);
-  }
-  .content-container.show-content {
-    bottom: 5%;
-  }
+/* SVG container styles */
+.svg-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
 }
 
-@media (max-width: 1385px) and (max-height: 920px) {
-  .wave-left {
-    left: -63%;
-    transform: translateY(-8%) rotate(3deg);
-  }
-  .wave-right {
-    right: -63%;
-    transform: translateY(-8%) rotate(-3deg) scaleX(-1);
-  }
-  .content-container.show-content {
-    bottom: 2%;
-  }
+.svg-container svg {
+  width: 30vw;
+  height: 30vh;
+  margin: 0 auto;
 }
 
-@media (max-width: 1260px) {
-  .wave-left {
-    left: -70%;
-  }
-  .wave-right {
-    right: -70%;
-  }
+.svg-container.show-svg {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-@media (max-width: 1095px) {
-  .wave-left {
-    left: -90%;
-  }
-  .wave-right {
-    right: -90%;
-  }
+.svg-container.move-up {
+  transform: translateY(-20vh) scale(0.8);
 }
 
-@media (max-width: 935px) {
-  .wave-left {
-    left: -110%;
-  }
-  .wave-right {
-    right: -110%;
-  }
-  .content-container.show-content {
-    bottom: 10%;
-  }
+/* Content container styles */
+.content-container {
+  position: absolute;
+  bottom: -100%;
+  opacity: 0;
+  text-align: center;
+  z-index: 10;
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (max-width: 840px) {
-  .wave-left {
-    left: -130%;
-  }
-  .wave-right {
-    right: -130%;
-  }
+.content-container.show-content {
+  opacity: 1;
+  bottom: 10%;
 }
 
-@media (max-width: 740px) {
-  .wave-left {
-    left: -155%;
-  }
-  .wave-right {
-    right: -155%;
-  }
-}
-
-@media (max-width: 645px) {
-  .wave-left {
-    left: -185%;
-    transform: translateY(-20%) rotate(5deg);
-  }
-  .wave-right {
-    right: -185%;
-    transform: translateY(-20%) rotate(-5deg) scaleX(-1);
-  }
-}
-
-/* Малые экраны */
-@media (max-width: 565px), (max-height: 750px) {
-  .wave-left,
-  .wave-right {
-    display: none;
-  }
-  .content-container.show-content {
-    bottom: 15%;
-  }
-  .svg-container {
-    width: 150px;
-    height: 275px;
-    margin-bottom: 110px;
-  }
-
-  .title {
-    font-size: 35px !important;
-  }
-}
-
-.title {
-  font-size: 3rem;
+.content-container__info-paragraph {
   color: white;
-  margin-bottom: 2rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  text-transform: uppercase;
-  font-weight: 400;
+  margin-top: 2rem;
+  font-size: 1vw;
 }
 
+/* Title styles */
+.title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 2.4vw;
+  line-height: 1.2;
+  letter-spacing: 5%;
+  text-align: center;
+  text-transform: uppercase;
+  color: #f5f5f5;
+  margin-bottom: 6vh;
+}
+
+/* Button styles */
 .details-button {
   padding: 1rem 2rem;
-  font-size: 1.2rem;
   background-color: #314664;
   border: 2px solid white;
-  border-radius: 0px;
-  font-size: 16px;
   color: white;
+  font-size: 0.75vw;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -459,6 +316,18 @@ export default {
 .details-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation styles */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .first-svg,
@@ -472,45 +341,55 @@ export default {
   animation-delay: 0.5s;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* Media queries */
 @media (max-width: 768px) {
   .content-container {
     padding: 1rem;
-    display: flex;
+
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     height: 100vh;
-  }
-
-  .background-image {
-    background-position: center center;
-  }
-
-  .content-container {
     padding-top: 40rem;
   }
-}
 
-@media (max-width: 480px) {
+  .wave-left,
+  .wave-right {
+    width: 32vw;
+  }
+
+  .wave-left {
+    left: -30vw;
+  }
+
+  .wave-right {
+    right: -30vw;
+  }
+
   .title {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-size: 4.5vh;
+    color: yellow;
   }
 
   .details-button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
+    font-size: 2vh;
+  }
+
+  .svg-container svg {
+    height: 25vh;
+    width: 70vw;
+  }
+
+  .content-container.show-content {
+    bottom: 12%;
+  }
+
+  .content-container__info-paragraph {
+    font-size: 2vh;
+  }
+  .waves-container {
+    display: none;
   }
 }
 
@@ -518,9 +397,14 @@ export default {
   .content-container {
     padding-top: 210rem;
   }
+  .content-container.show-content {
+    bottom: 42%;
+  }
+}
 
+@media (max-height: 650px) {
   .title {
-    font-size: 2rem;
+    margin-bottom: 1vh;
   }
 }
 
@@ -532,18 +416,75 @@ export default {
     gap: 2rem;
   }
 
+  .content-container.show-content {
+    bottom: -50%;
+  }
+
+  .details-button {
+    font-size: 2vh;
+    padding: 0.25rem;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 1199.98px) {
   .title {
-    margin-bottom: 0;
+    font-size: 4.5vh;
+    color: yellow;
+  }
+
+  .details-button {
+    font-size: 2vh;
+  }
+
+  .svg-container svg {
+    height: 25vh;
+    width: 70vw;
+  }
+
+  .content-container.show-content {
+    bottom: 6%;
+  }
+
+  .content-container__info-paragraph {
+    font-size: 2vh;
+  }
+  .waves-container {
+    display: none;
   }
 }
 
 @media (min-width: 1920px) {
-  .title {
-    font-size: clamp(3rem, 4vw, 5rem);
-  }
-
   .content-container {
     padding: 3rem;
+  }
+}
+
+@media (min-width: 2579px) {
+  .wave-left,
+  .wave-right {
+    width: 90vw;
+  }
+
+  .wave-left {
+    left: -24vw;
+  }
+
+  .wave-right {
+    right: -24vw;
+  }
+}
+@media (min-width: 3000px) {
+  .wave-left,
+  .wave-right {
+    width: 90vw;
+  }
+
+  .wave-left {
+    left: -24vw;
+  }
+
+  .wave-right {
+    right: -24vw;
   }
 }
 </style>
